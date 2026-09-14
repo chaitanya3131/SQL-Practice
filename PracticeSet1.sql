@@ -1,13 +1,13 @@
 -- LESSON: 11  Practice / Assigment -- 
 
 -- Write a query to fetch all columns for all employees.
-
+SELECT * FROM employees;
 -- Fetch the unique product from the orders table.
-
+SELECT DISTINCT PRODUCTCODE FROM orderdetails;
 -- Fetch all details of employees who belong to the 'Sales' department.
-
+SELECT * FROM employees where department='Sales';
 -- Fetch the employee names and their salaries with column aliases "Name" and "Income"
-
+select empName as Name,salary as Income from employees;
 -- Show all products buy price above 50 Dollar.
 
 -- Fetch the top 2 highest paid employees in our company.

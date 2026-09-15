@@ -7,12 +7,15 @@ SELECT DISTINCT PRODUCTCODE FROM orderdetails;
 -- Fetch all details of employees who belong to the 'Sales' department.
 SELECT * FROM employees where department='Sales';
 -- Fetch the employee names and their salaries with column aliases "Name" and "Income"
-select empName as Name,salary as Income from employees;
+select empName as Name,coalesce(NUllif(salary,0),'Intern') as Income from employees;
 -- Show all products buy price above 50 Dollar.
-
+select * from products where buyPrice>50;
 -- Fetch the top 2 highest paid employees in our company.
-
+SELECT * FROM EMPLOYEES ORDER BY SALARY DESC LIMIT 2;
+SELECT DEPARTMENT FROM EMPLOYEES;
 -- Get employees who are either in Sales or have a salary above 30,000.
+
+SELECT * FROM EMPLOYEES WHERE empName like 'j%';
 
 -- Fetch products with a price between 20 and 100.
 

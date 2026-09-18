@@ -15,22 +15,25 @@ SELECT * FROM EMPLOYEES ORDER BY SALARY DESC LIMIT 2;
 SELECT DEPARTMENT FROM EMPLOYEES;
 -- Get employees who are either in Sales or have a salary above 30,000.
 
-SELECT * FROM EMPLOYEES WHERE empName like 'j%';
-
 -- Fetch products with a price between 20 and 100.
-
+SELECT * FROM products WHERE SALEPRICE BETWEEN 20 AND 100;
 -- Retrieve orders where the product is either 'Laptop' or 'Tablet'
-
+SELECT * FROM PRODUCTS WHERE productName IN ('Laptop','Tablet');
 -- Find employee names starting with 'J'
-
+SELECT * FROM EMPLOYEES WHERE empName like 'j%';
 -- Case insensitive search for employee names containing 'son'
-
--- Display employee names along with their salary category as 'High' if above 70,000, else 'Low'
-
+SELECT * FROM EMPLOYEES WHERE empName like '%son%';
+-- Display employee names along with their salary category as 'High' if above 70,000, else 'Low';
+SELECT empName,
+CASE
+when salary>35000 THEN 'HIGH'
+ELSE 'LOW'
+END as level
+ FROM employees;
 -- Show the delivery date, but if it is NULL, display 'Pending'
-
+select coalesce(orderDate,'Pending') from orders;
 -- Compare two columns and return NULL if they are the same.
-
+select empName,NULLIF(officeCode,department) as Status from employees;
 -- Display employee names and their salary incremented by 10% as "New Salary"
 
 -- Get the employees who are either in 'Sales' or 'Marketing' department and earn more than 30,000.

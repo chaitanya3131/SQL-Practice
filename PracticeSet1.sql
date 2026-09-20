@@ -35,7 +35,7 @@ select coalesce(orderDate,'Pending') from orders;
 -- Compare two columns and return NULL if they are the same.
 select empName,NULLIF(officeCode,department) as Status from employees;
 -- Display employee names and their salary incremented by 10% as "New Salary"
-
+SELECT  empName,coalesce((salary*(10/100)+salary),"Intern") as Incremented_Salary from employees;
 -- Get the employees who are either in 'Sales' or 'Marketing' department and earn more than 30,000.
 
 -- Show the product name and its availability status as 'In Stock' if the quantity is more than0, else 'Out of Stock'
@@ -136,31 +136,41 @@ select empName,NULLIF(officeCode,department) as Status from employees;
    		 FROM employees;
 
 -- Get the employees who are either in 'Sales' or 'Marketing' department and earn more than 30,000.
-   		
+   		select * from employees where department in ('Sales','Marketing') and salary>30000;
    		-- BY YOU GUYS
 
 -- Show the product name and its availability status as 'In Stock' 
+select productName,
+CASE
+WHEN quantity<=0 then 
+'Out of stock'
+else
+'In stock'
+END
+as Status
+ from products;
+
 --    if the quantity is more than 0, else 'Out of Stock'
 		
    		-- BY YOU GUYS
    		
 -- Display customer names and delivery dates, but if the delivery date is NULL, show 'Not Delivered'
    		
-   		-- BY YOU GUYS
+   		select custId,coalesce(shippedDate,'Not Delivered') from orders;
 
 -- Retrieve all products whose names contain the letter 'a' (case insensitive) and are priced 
 --  between 50 and 200, ordered by price in ascending order.
 
 	 select * from products 
-   		where productName LIKE '%8%' and buyPrice 
-   	BETWEEN 50 and 200 ORDER BY buyPrice desc;
+   		where productName LIKE '%a%' and buyPrice 
+   	BETWEEN 50 and 200 ORDER BY buyPrice asc;
    		
    		
 -- Count the number of different products sold.
-   
+   select count(productCode) from products;
 
 -- Count how many employees have salaries above 70,000.
+select count(eId) from employees where salary >70000;
 
-
-
+select * from employees;
 

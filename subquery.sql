@@ -16,3 +16,15 @@ select e.eId,e.empName,d.dept_name from employees as e,departments as d;
 --  For each order, show order_id, amount, and the customer’s city.
 select c.city,c.custid,o.orderNumber from orders as o,customers as c where c.custid in (select custid from orders);
 
+-- 	8.  Find employees who work in departments where average salary > 50,000.
+
+select * from employees;
+
+select e.eid,d.dept_name,e.salary from employees as e
+join departments as d
+on e.department=d.dept_id
+where e.salary>
+(select avg(e2.salary) from employees as e2 where e.department=e2.department);
+
+
+

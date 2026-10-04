@@ -27,4 +27,65 @@ where e.salary>
 (select avg(e2.salary) from employees as e2 where e.department=e2.department);
 
 
+-- 21.	List top 3 highest paid employees per department.
+
+select * from employees;
+
+select e.eId,d.dept_name,max(e.salary) from employees as e
+join departments as d on e.department=d.dept_id group by d.dept_name order by e.salary desc;
+
+
+-- 22.	Show each customer and their total spend amount.
+
+select * from customers;
+select * from orders;
+
+select c.custid ,sum(o.orderAmount) from customers as c
+join orders as o on c.custid=o.custid group by c.custid; 
+
+-- 26.	Find employees who earn more than the average salary of all employees.
+
+select * from employees;
+
+select e.eid,e.empName from employees as e where e.salary >(select avg(salary) from employees);
+
+
+-- 28.	Find customers whose total spend is above the average total spend.
+
+
+
+
+
+
+-- 29.	Show each employee and their salary difference from department average.
+SELECT e.eId,
+       e.empName,
+       e.salary,
+       e.salary - (
+           SELECT AVG(e2.salary)
+           FROM employees e2
+           WHERE e2.department = e.department
+       ) AS salary_difference
+FROM employees e;
+
+
+-- 30.	Show each customer, total orders and total spend.
+SELECT c.custid,
+       (SELECT COUNT(*)
+        FROM orders o
+        WHERE o.custid = c.custid) AS total_orders,
+       
+       (SELECT SUM(o.orderAmount)
+        FROM orders o
+        WHERE o.custid = c.custid) AS total_spend
+FROM customers c;
+
+
+
+
+
+
+
+
+
 

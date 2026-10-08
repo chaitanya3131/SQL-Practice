@@ -15,3 +15,14 @@ e.department=d.dept_id group by d.dept_name;
 
 select d.dept_name,avg(e.salary) as avg_salary from departments as d join employees as e
 on d.dept_id=e.department group by d.dept_name having avg_salary>5000;
+
+-- 7️⃣ Create a materialized view to store the total salary per department.
+
+CREATE MATERIALIZED VIEW dept_salary as 
+select d.dept_name,sum(e.salary) from departments as d
+inner join employees as e on d.dept_id=e.department group by d.dept_name;
+
+
+
+
+

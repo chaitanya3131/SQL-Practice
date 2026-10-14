@@ -51,7 +51,48 @@ DELIMITER ;
 
 SELECT CUSTID,FUN(CUSTOMERNAME) AS NAME FROM CUSTOMERS;
 
+-- Use a function to get the current date and time of the system.
 
+select now();
+
+-- ●	 Extract the first 3 letters of each product name.
+
+select right(productName,3) from products;
+
+-- Find the length of each customer’s full name.
+select customerName,length(customerName) from customers;
+
+-- ●	Get the current year and subtract it from the year of joining to get years of service.
+select timestampdiff(year,'2006-07-26',curdate());
+
+select curdate();
+
+-- ●	Display all payments who registered in the current month.
+
+select * from payments where month(paymentDate)=month(curdate()) and year(paymentDate)='2004';
+
+-- ●	Round off the product price to 2 decimal places.
+
+select round(salePrice,2) from products;
+
+-- ●	Display the absolute difference between order quantity and stock.
+
+select * from orderdetails;
+
+-- Create a UDF to calculate total price = price * quantity.
+drop function fun;
+delimiter $$
+create function fun(price int,qnt int)
+returns decimal
+deterministic
+begin
+	declare total decimal;
+    select price*qnt into total;
+    return total;
+end $$
+
+select fun(1,500);
+    
 
 
 

@@ -92,7 +92,39 @@ begin
 end $$
 
 select fun(1,500);
+
+-- Create a UDF that returns 'Adult' or 'Minor' based on date of birth.
+DROP FUNCTION FUN;
+DELIMITER $$
+CREATE FUNCTION FUN(DATE DATE)
+RETURNS VARCHAR(50)
+DETERMINISTIC
+BEGIN
+	DECLARE R VARCHAR(50);
+    DECLARE AGE INT DEFAULT 0;
+    SET AGE=timestampdiff(YEAR,DATE,NOW());
+    IF AGE>=18 THEN
+    SET R="ADULT";
+    ELSE
+    SET R="MINOR";
+    END IF;
+    RETURN R;
+END $$
+
+DELIMITER ;
+SELECT FUN('2026-9-1');
+
+-- ●	Concatenate first name and last name, and display it in uppercase.
+
+select concat(upper(customerName),'_',upper(addressLine1)) from customers;
     
+    
+--  ●	Display the number of days between order date and delivery date.
+select * from orders;
+
+select datediff(shippedDate,orderDate) as Days from orders;
+
+
 
 
 

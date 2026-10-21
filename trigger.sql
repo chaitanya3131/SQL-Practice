@@ -17,6 +17,41 @@ INSERT INTO STU VALUES (1,'NAME');
 
 -- ●	Write a trigger that prevents inserting or updating a product in the inventory table with stock quantity less than zero.
 
+CREATE TABLE Inventory (
+    Product_ID INT PRIMARY KEY,
+    Product_Name VARCHAR(50),
+    Stock_Quantity INT
+);
+drop trigger trig;
+SELECT * FROM Inventory;
+DELIMITER $$
+CREATE TRIGGER TRIG
+BEFORE UPDATE ON Inventory
+FOR EACH ROW
+BEGIN
+    IF NEW.Stock_Quantity>OLD.Stock_Quantity THEN 
+    SIGNAL SQLSTATE '45000'
+	SET MESSAGE_TEXT = 'OUT OF STOCK';
+    ELSE
+		SET NEW.Stock_Quantity=Old.Stock_Quantity-New.Stock_Quantity;
+	END IF;
+END $$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 -- ●	Whenever an order is deleted from the orders table, copy the deleted record to the deleted_orders table using a trigger.
 

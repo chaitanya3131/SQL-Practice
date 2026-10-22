@@ -38,9 +38,22 @@ BEGIN
 END $$
 DELIMITER ;
 
+-- ●	Create a trigger on the employees table to track any update to the salary
+-- field and store the old salary, new salary, and timestamp in a salary_history table.
+CREATE TABLE EMP_TRACK (E_ID INT,OLD_SAL INT,NEW_SAL INT,DATETIME DATE);
+DROP TRIGGER IF EXISTS TRIG;
+SELECT * FROM EMPLOYEES;
+DELIMITER $$
+CREATE TRIGGER TRIG1
+BEFORE UPDATE ON employees
+FOR EACH ROW
+BEGIN
+	INSERT INTO EMP_TRACK (E_ID,OLD_SAL,NEW_SAL,DATETIME) VALUES (OLD.EID,OLD.SALARY,NEW.SALARY,NOW());
+END $$
+DELIMITER ;
 
-
-
+UPDATE employees SET SALARY=1 WHERE EID=496;
+SELECT * FROM EMP_TRACK;
 
 
 

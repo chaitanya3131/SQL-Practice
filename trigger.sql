@@ -56,6 +56,23 @@ UPDATE employees SET SALARY=1 WHERE EID=496;
 SELECT * FROM EMP_TRACK;
 
 
+-- Create a BEFORE INSERT trigger on the users table to convert the email field to lowercase before storing it.
+drop trigger trig;
+select * from stu;
+use demo;
+drop
+delimiter $$
+create trigger trig
+before insert on stu
+for each row
+begin
+	SET NEW.email=LOWER(new.email);
+end $$
+delimiter ;
+
+insert into stu (id,name,email) values (2, 'a','CHAITANYA');
+
+SELECT 
 
 
 
@@ -64,13 +81,4 @@ SELECT * FROM EMP_TRACK;
 
 
 
-
-
--- ●	Whenever an order is deleted from the orders table, copy the deleted record to the deleted_orders table using a trigger.
-
-
--- ●	Create a trigger on the employees table to track any update to the salary field and store the old salary, new salary, and timestamp in a salary_history table.
-
-
--- ●	Whenever an employee record is updated in the employees table, automatically update the last_modified column with the current timestamp.
 

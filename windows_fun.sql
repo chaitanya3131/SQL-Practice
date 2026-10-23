@@ -26,7 +26,17 @@ USE SAMPLE;
 SELECT *,ROW_NUMBER() OVER(
 PARTITION BY CUSTID ORDER BY ORDERDATE DESC
 ) AS NUM FROM ORDERS;
+select * from orderdetails;
+SELECT categoRY,sum(saleprice) AS SALES ,RANK() OVER (
 
+ORDER BY SUM(SALEPRICE) DESC) AS 'RANK'
+FROM PRODUCTS GROUP BY CATEGORY;
+
+SELECT * FROM PRODUCTS;
+
+SELECT productCode,saleprice ,Percent_rank() over(
+order by salePrice asc)
+as 'Percentile' from products;
 
 
 

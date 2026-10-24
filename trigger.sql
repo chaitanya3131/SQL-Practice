@@ -72,7 +72,69 @@ delimiter ;
 
 insert into stu (id,name,email) values (2, 'a','CHAITANYA');
 
-SELECT 
+-- ●	When an invoice is deleted from the invoices table,
+-- use a trigger to automatically delete all associated records from the invoice_items table.
+use demo;
+
+
+
+CREATE TABLE Invoices (
+    Invoice_ID INT PRIMARY KEY,
+    Customer_Name VARCHAR(50),
+    Invoice_Date DATE,
+    Total_Amount DECIMAL(10,2)
+);
+
+CREATE TABLE Invoice_Items (
+    Item_ID INT PRIMARY KEY,
+    Invoice_ID INT,
+    Product_Name VARCHAR(50),
+    Quantity INT,
+    Price DECIMAL(10,2)
+);
+
+INSERT INTO Invoices
+(Invoice_ID, Customer_Name, Invoice_Date, Total_Amount)
+VALUES
+(101, 'Amit', '2026-10-01', 1500.00),
+(102, 'Priya', '2026-10-05', 2500.00),
+(103, 'Rahul', '2026-10-10', 3000.00),
+(104, 'Sneha', '2026-10-15', 1800.00);
+
+INSERT INTO Invoice_Items
+(Item_ID, Invoice_ID, Product_Name, Quantity, Price)
+VALUES
+(1, 101, 'Keyboard', 2, 500.00),
+(2, 101, 'Mouse', 1, 500.00),
+(3, 102, 'Monitor', 1, 2000.00),
+(4, 102, 'Mouse', 1, 500.00),
+(5, 103, 'Laptop', 1, 3000.00),
+(6, 104, 'Keyboard', 1, 500.00),
+(7, 104, 'Headphones', 2, 650.00);
+select * from invoice_items;
+select * from invoices;
+drop trigger trig ;
+DELIMITER $$
+CREATE TRIGGER TRIG
+BEFORE DELETE ON INVOICES
+FOR EACH ROW
+BEGIN
+	DELETE FROM invoice_items where Invoice_ID=old.invoice_id;
+end $$
+delimiter ;
+
+delete from invoices where Invoice_ID=101;
+
+SET SQL_SAFE_UPDATES = 0;
+
+
+
+
+
+
+
+
+
 
 
 

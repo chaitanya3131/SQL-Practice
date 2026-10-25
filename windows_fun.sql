@@ -16,7 +16,35 @@ VALUES
 (4, 'West', 3000),
 (5, 'North', 2500);
 
-SELECT * FROM Sales;
+SELECT * FROM ORDERS;
+USE SAMPLE;
+SELECT * FROM CUSTOMERS;
+SELECT C.CUSTiD,O.ORDERNUMBER,o.orderDate,ROW_NUMBER() OVER(
+PARTITION BY c.custid order by o.orderDate desc
+) as Order_squence FROM customers as c
+join orders as o
+on c.custid=o.custid;
+
+select category,sum(salePrice),RANK()
+OVER(
+ORDER BY SUM(SALEPRICE) DESC
+) AS "Category Rank " FROM PRODUCTS GROUP BY CATEGORY;
+
+SELECT * FROM EMPLOYEES;
+SELECT EiD,SALARY,PERCENT_RANK() OVER(
+ORDER BY SALARY ASC
+) AS PERCENTILE FROM EMPLOYEES;
+
+
+
+
+
+
+
+
+
+
+
 SELECT *,SUM(Sales) OVER(
  partition by REGION order by Sales
 ) AS TOTAL_SALES FROM SALES;

@@ -39,17 +39,40 @@ order by Revenue desc;
 WITH RECURSIVE CTE AS (
 SELECT 1 AS NUM
 UNION ALL
-SELECT NUM+1 FROM CTE
-WHERE NUM <10
+SELECT NUM+1 FROM CTE WHERE NUM<10
 )
 SELECT * FROM CTE;
 
-SELECT EMPNAME,
-CASE
-WHEN SALARY >20000 THEN "HIGH"
-ELSE "LOW"
-END AS SAL_STATUS
-FROM EMPLOYEES;
+WITH RECURSIVE CTE(n,fact) AS (
+SELECT 1,1
+UNION ALL
+SELECT n+1,fact*(n+1) from cte where n<5
+)
+select * from cte;
+
+
+with recursive cte as (
+select orderNumber,orderAmount from orders where orderNumber=10100
+union all
+select o.orderNumber,o.orderAmount from orders as o
+join cte as c on o.orderNumber=c.orderNumber+1 where o.ordernumber <10105
+)
+select * from cte;
+
+select substring('chaitanya',1,2);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
